@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
             'images/logoSA.png',
             width: 200,
           ),
-          input("Ingrese Usuario1", "Usuario", false, controllerUser),
+          input("Ingrese Usuario", "Usuario", false, controllerUser),
           const SizedBox(height: 20),
           input("Ingrese Contraseña" , "Contraseña", true, controllerPassword),
           const SizedBox(height: 40),
@@ -101,11 +101,9 @@ class _LoginState extends State<Login> {
 
           var result = await controlador.verificacionUsuario(context: context, usuario: user, password: password);
 
-          var ffdf = "";
-
-         // if( result ){
-         //   Navigator.of(context).pushNamed('/menu');
-         // }
+          if( result ){
+            Navigator.of(context).pushNamed('/menu');
+          }
 
       } else {
         Dialogo().showAlert(context,"Sin conexión a internet!");

@@ -17,7 +17,7 @@ class Header extends StatelessWidget {
             icon: Icon(Icons.home),
             color: Colors.lightGreen,
             onPressed: () {
-              Scaffold.of(context).openDrawer();
+              //Scaffold.of(context).openDrawer();
             },
             tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           );
