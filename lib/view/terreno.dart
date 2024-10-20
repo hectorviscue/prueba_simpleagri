@@ -38,7 +38,7 @@ class _TerrenoState extends State<Terreno> {
   Future<void> cargar_tabla() async {
 
     lista_data = await controllerterreno.listadoTabla( context: context);
-      
+    
     setState(() {
         loading = false;
     });
@@ -66,12 +66,7 @@ class _TerrenoState extends State<Terreno> {
     }
   }
 
-  Future<void> cambio_estado() async {
 
-    
-
-
-  }
 
 
 
@@ -127,7 +122,23 @@ class _TerrenoState extends State<Terreno> {
 
                       //realiza una funcion que se llame ( cambio_estado ) que tenga un parametro que reciba el valor de (index)
                       //debe realizar  una lista auxiliar para que pueda contener los datos originales y los datos de la busqueda
-  
+                      //recuerden que el estado "Todos" no exite entonces debe aplicar algo para que la tabla cargue todos los registros de nuevo
+                      //estos registros se evaluan sobre temporales aqui no hay webservices.
+                      int parameter = 0;
+                      switch(index){
+                        case 0:
+                          parameter = 3; //todos
+                          break;
+                        case 1:
+                          parameter = 0; //activos
+                          break;
+                        case 2:
+                          parameter = 1; //inactivos
+                          break;
+                        case 3:
+                          parameter = 2; //cerrado
+                          break;
+                      }
 
                       setState(() {
                         _selectedIndex = index;
