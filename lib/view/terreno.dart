@@ -23,6 +23,7 @@ class _TerrenoState extends State<Terreno> {
   List<ObjetoTerreno> lista_data = [];
   int _selectedIndex = 0;
   final List<String> _options = [ "Todos", 'Activo', 'Inactivo', 'Cerrado' ];
+  List<ObjetoTerreno> lista_data_aux = [];
 
   @override
   void initState() {
@@ -38,9 +39,10 @@ class _TerrenoState extends State<Terreno> {
   Future<void> cargar_tabla() async {
 
     lista_data = await controllerterreno.listadoTabla( context: context);
-    
+
     setState(() {
         loading = false;
+        lista_data_aux = lista_data;
     });
     
   }
@@ -57,16 +59,40 @@ class _TerrenoState extends State<Terreno> {
 
       //aqui realizar lo necesario para limpiar la lista y obtener los registros nuevos 
 
+      lista_data.clear();
 
-
-      var dd = await controllerterreno.consultar( context: context, texto_busqueda: controler_texto_busqueda.text );
+      lista_data = await controllerterreno.consultar( context: context, texto_busqueda: controler_texto_busqueda.text );
       
       setState(() { });
     
     }
   }
 
+  Future<void> cambio_estado( int parameter) async {
 
+    
+    
+    if(parameter == 3){
+      lista_data = lista_data_aux;
+    }
+    else{
+
+      
+      List<ObjetoTerreno> lista_data_cargue = [];
+      lista_data_aux.forEach((element) {
+
+        int value = int.parse( element.status );
+        if(  value == parameter){
+          lista_data_cargue.add(element);
+        }
+      });
+
+      lista_data = lista_data_cargue;
+      
+    }
+    setState(() { });
+
+  }
 
 
 
@@ -139,7 +165,7 @@ class _TerrenoState extends State<Terreno> {
                           parameter = 2; //cerrado
                           break;
                       }
-
+                      cambio_estado( parameter );
                       setState(() {
                         _selectedIndex = index;
                       });

@@ -48,8 +48,31 @@ class ControladorTerrenos {
 
     //aqui devuelve una lista con los datos buscados
     // aqui agrega la logica para capturar y evaluar los estaod.
-    
+
     var resultado = await controlador.callMethod( "PruebaTecnica","cultar_terrenos", parametros );
+    List<ObjetoTerreno> listado_terreno = []; 
+
+    for ( var registros in resultado ) {
+      
+      ObjetoTerreno regtro= ObjetoTerreno.fromJson(registros);
+
+      switch(regtro.status){
+        case "0":
+          regtro.texto_status = "Activo";
+          break;
+        case "1":
+          regtro.texto_status = "Inactivo";
+          break;
+        case "2":
+          regtro.texto_status = "Cerrado";
+          break;
+      }
+
+      listado_terreno.add( regtro );
+
+    }
+
+    return listado_terreno;
 
 
   }
